@@ -36,7 +36,7 @@
   function convertToMarkdown() {
     // 选择需要处理的节点
     const nodesToProcess = document.querySelectorAll(
-      ".heading-h2, .heading-h3, .text-block, .image-block, .img, table, .list-content"
+      ".heading-h2, .heading-h3, .text-block, .image-block, .img, table, .list-content, .editor-kit-code-block"
     );
 
     // 定义一个空的 Map 对象来保存节点信息
@@ -97,6 +97,13 @@
         case node.classList.contains("list-content"):
           type = "list";
           content = node.textContent.trim();
+          break;
+        case node.classList.contains("editor-kit-code-block"):
+          type = "code-block";
+          const codeLines = Array.from(node.querySelectorAll('.ace-line')).map(line => 
+            line.textContent.trim()
+          ).join('\n');
+          content = `\`\`\`\n${codeLines}\n\`\`\``; // Markdown code block
           break;
         default:
           break;
@@ -162,6 +169,9 @@
             markdownContent += "\n";
           }
           markdownContent += "\n";
+          break;
+        case "code-block":
+          markdownContent += node.content + "\n\n"; // Add code block to markdown
           break;
         default:
           break;
