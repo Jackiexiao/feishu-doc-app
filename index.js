@@ -66,11 +66,18 @@
           break;
         case node.classList.contains("image-block"):
           type = "img";
-          content = "https://";
+          // 获取图片链接
+          const imgElement = node.querySelector('img');
+          if (imgElement) {
+            content = imgElement.src; // 提取 src 属性
+          } else {
+            content = ""; // 默认值
+          }
           break;
         case node.classList.contains("img"):
           type = "img";
-          content = "https://";
+          const imgSrc = node.src; // 直接获取 img 的 src
+          content = imgSrc ? imgSrc : "https://"; // 提取 src 属性
           break;
         case node.tagName.toLowerCase() === "table":
           type = "table-block";
@@ -108,10 +115,10 @@
       const node = nodes.get(i);
       switch (node.type) {
         case "heading-h2":
-          markdownContent += "## " + node.content + "\n\n";
+          markdownContent += "## " + node.content + "\n";
           break;
         case "heading-h3":
-          markdownContent += "### " + node.content + "\n\n";
+          markdownContent += "### " + node.content + "\n";
           break;
         case "text-block":
           // 判断文本节点是否在表格中
@@ -121,10 +128,12 @@
           }
           break;
         case "img":
-          markdownContent += "![](https://)" + "\n\n";
+          // 修改为使用实际的图片链接
+        //   markdownContent += `![](${node.content})` + "\n"; // 这里使用 node.content 作为图片链接
+          markdownContent += ""; // 飞书图片链接无法直接访问，所以这里不复制
           break;
         case "list":
-          markdownContent += "- " + node.content + "\n\n";
+          markdownContent += "- " + node.content + "\n";
           break;
         case "table-block":
           const table = node.content;
