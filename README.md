@@ -18,4 +18,4 @@
 之后打开飞书文档，右上角会出现一键复制按钮，如果没有，尝试刷新一下页面。
 <img width="334" alt="image" src="https://github.com/user-attachments/assets/fe13988c-f0d1-452d-bddd-c1dcf307d336">
 
-- 重要的一步！你需要全选文章，滑动至最底端后再点击一键复制
+- 注意：每次只能复制当前页面的一小段内容，需要点击多次复制
